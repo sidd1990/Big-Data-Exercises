@@ -15,31 +15,7 @@ package edu.uta.cse6331;
         import org.apache.hadoop.mapreduce.lib.input.*;
         import org.apache.hadoop.mapreduce.lib.output.*;
 
-class N_Matrix implements Writable {
-    public int jRowNumber;
-    public int kColumnNumber;
-    public double val;
 
-    N_Matrix () {}
-
-    N_Matrix ( int j, int k, double v ) {
-        jRowNumber = j;
-        kColumnNumber = k;
-        val = v;
-    }
-
-    public void write ( DataOutput out ) throws IOException {
-        out.writeInt(jRowNumber);
-        out.writeInt(kColumnNumber);
-        out.writeDouble(val);
-    }
-
-    public void readFields ( DataInput in ) throws IOException {
-        jRowNumber = in.readInt();
-        kColumnNumber = in.readInt();
-        val = in.readDouble();
-    }
-}
 
 class M_Matrix implements Writable {
     public int iRowNumber;
@@ -67,6 +43,59 @@ class M_Matrix implements Writable {
     }
 }
 
+class N_Matrix implements Writable {
+    public int jRowNumber;
+    public int kColumnNumber;
+    public double val;
+
+    N_Matrix () {}
+
+    N_Matrix ( int j, int k, double v ) {
+        jRowNumber = j;
+        kColumnNumber = k;
+        val = v;
+    }
+
+    public void write ( DataOutput out ) throws IOException {
+        out.writeInt(jRowNumber);
+        out.writeInt(kColumnNumber);
+        out.writeDouble(val);
+    }
+
+    public void readFields ( DataInput in ) throws IOException {
+        jRowNumber = in.readInt();
+        kColumnNumber = in.readInt();
+        val = in.readDouble();
+    }
+}
+
+class InterMatrix implements Writable {
+    public short flag;
+    public M_Matrix mMatrix;
+    public N_Matrix nMatrix;
+
+    InterMatrix () {}
+    InterMatrix ( M_Matrix m ) { flag = 0; mMatrix = m; }
+    InterMatrix ( N_Matrix n ) { flag = 1; nMatrix = n; }
+
+    public void write ( DataOutput out ) throws IOException {
+        out.writeShort(flag);
+        if (flag==0)
+            mMatrix.write(out);
+        else nMatrix.write(out);
+    }
+
+    public void readFields ( DataInput in ) throws IOException {
+        flag = in.readShort();
+        if (flag==0) {
+            mMatrix = new M_Matrix();
+            mMatrix.readFields(in);
+        } else {
+            nMatrix = new N_Matrix();
+            nMatrix.readFields(in);
+        }
+    }
+}
 
 
 class InterResult implements Writable {
@@ -135,36 +164,6 @@ class Pair implements WritableComparable<Pair> {
 
     public String toString () { return i+" , "+k; }
 }
-
-class InterMatrix implements Writable {
-    public short flag;
-    public M_Matrix mMatrix;
-    public N_Matrix nMatrix;
-
-    InterMatrix () {}
-    InterMatrix ( M_Matrix m ) { flag = 0; mMatrix = m; }
-    InterMatrix ( N_Matrix n ) { flag = 1; nMatrix = n; }
-
-    public void write ( DataOutput out ) throws IOException {
-        out.writeShort(flag);
-        if (flag==0)
-            mMatrix.write(out);
-        else nMatrix.write(out);
-    }
-
-    public void readFields ( DataInput in ) throws IOException {
-        flag = in.readShort();
-        if (flag==0) {
-            mMatrix = new M_Matrix();
-            mMatrix.readFields(in);
-        } else {
-            nMatrix = new N_Matrix();
-            nMatrix.readFields(in);
-        }
-    }
-}
-
-
 
 
 public class Multiply {
