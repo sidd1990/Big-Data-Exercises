@@ -1,4 +1,5 @@
 # Big-Data-Exercises
+The following are assignments of Big Data Course that I took at UTA. 
 
 # Project 1 
 The purpose of this project is to develop a simple Map-Reduce program on Hadoop to multiply two sparse matrices.
