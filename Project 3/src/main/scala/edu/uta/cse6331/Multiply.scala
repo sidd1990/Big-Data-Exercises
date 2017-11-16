@@ -15,6 +15,7 @@ case class M_Matrix ( i: Long, j: Long, v: Double )
 @SerialVersionUID(123L)
 case class N_Matrix ( j: Long, k: Long, w: Double )
   extends Serializable {}
+  
 
 object Multiply {
   def main(args: Array[ String ]): Unit ={
