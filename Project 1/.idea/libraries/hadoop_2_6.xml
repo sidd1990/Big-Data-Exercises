@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="hadoop-2.6">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Downloads/hadoop-2.6.0" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Downloads/hadoop-2.6.0/share/doc/hadoop/api" />
+      <root url="file://$USER_HOME$/Downloads/hadoop-2.6.0/share/doc/hadoop/hadoop-hdfs-httpfs/apidocs" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
