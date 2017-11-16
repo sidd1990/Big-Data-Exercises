@@ -16,5 +16,5 @@ For the above graph, there are two connected components: one 0,8,9 and another 1
 The goal was to print the sizes of these connected components: 3 and 7.
 
 # Project 3
-This project is about mining on a Big dataset to find connected users in social media. Here, I have used (Spark, Scala) as development tools. The goal is to find connected users in social media datasets.
+This project is about multiplying two matrices using Spark and Scala as development tools. 
  
